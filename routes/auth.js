@@ -107,4 +107,9 @@ router.post("/signin", async (req, res, next) => {
 	}
 });
 
+router.get("/me", isAuthenticated, (req, res, next) => {
+	// console.log("req payload", req.payload);
+	res.status(200).json(req.payload);
+}); 
+
 module.exports = router;
