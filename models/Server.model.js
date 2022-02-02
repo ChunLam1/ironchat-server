@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const userSchema = new Schema(
+const serverSchema = new Schema(
 	{
 		name: {
 			type: String,
@@ -8,11 +8,14 @@ const userSchema = new Schema(
 		},
 		participants: {
             type: Array
-        }
+        },
+		messages: {
+			type: Array
+		}
 	},
 	{
 		timestamps: true,
 	}
 );
 
-module.exports = model("User", userSchema);
+module.exports = model("Server", serverSchema);

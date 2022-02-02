@@ -20,18 +20,16 @@ router.post("/signup", async (req, res, next) => {
 			.json({ message: "I need some informations to work with here!" });
 	}
 
-	// ! To use only if you want to enforce strong password (not during dev-time)
+	const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
-	// const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
-
-	// if (!regex.test(password)) {
-	// 	return res
-	// 		.status(400)
-	// 		.json({
-	// 			message:
-	// 				"Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
-	// 		});
-	// }
+	if (!regex.test(password)) {
+		return res
+			.status(400)
+			.json({
+				message:
+					"Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
+			});
+	}
 
 	try {
 		const foundUser = await User.findOne({ email });
@@ -52,7 +50,6 @@ router.post("/signup", async (req, res, next) => {
 
 		const user = createdUser.toObject();
 		delete user.password;
-		// ! Sending the user as json to the client
 		res.status(201).json({ user });
 	} catch (error) {
 		console.log(error);
@@ -108,11 +105,6 @@ router.post("/signin", async (req, res, next) => {
 			.status(500)
 			.json({ message: "Oh noes ! Something went terribly wrong !" });
 	}
-});
-
-router.get("/me", isAuthenticated, (req, res, next) => {
-	// console.log("req payload", req.payload);
-	res.status(200).json(req.payload);
 });
 
 module.exports = router;
