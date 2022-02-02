@@ -16,13 +16,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
-	cors({
-		credentials: true,
-		origin: process.env.FRONTEND_URL || "http://localhost:3000",
-	})
+  cors({
+    credentials: true,
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+  })
 );
 
 app.use("/", require("./routes/index"));
 app.use("/api/auth", require("./routes/auth"));
+app.use("/server", require("./routes/server"));
 
 module.exports = app;
