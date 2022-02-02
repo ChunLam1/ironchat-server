@@ -11,6 +11,9 @@ const serverSchema = new Schema(
         },
 		messages: {
 			type: Array
+		},
+		admins: {
+			type: Array
 		}
 	},
 	{
