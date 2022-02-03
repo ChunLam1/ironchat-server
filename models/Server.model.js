@@ -7,17 +7,21 @@ const serverSchema = new Schema(
       unique: true,
       required: true,
     },
-    participants: {
-      type: Array,
-      required: true,
-    },
-    messages: {
-      type: Array,
-    },
-    admins: {
-      type: Array,
-      required: true,
-    },
+    participants: [{
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    }],
+    messages: [{
+      type: Schema.Types.ObjectId,
+      ref: "Message"
+    }],
+    admins: [{
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    }],
+    imageUrl: {
+      type: String
+    }
   },
   {
     timestamps: true,

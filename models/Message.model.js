@@ -2,16 +2,14 @@ const { Schema, model } = require("mongoose");
 
 const messageSchema = new Schema(
   {
-    serverId: {
-      type: String,
-      unique: true,
-      required: true,
-    },
-    userId: {
-      type: String,
-      unique: true,
-      required: true,
-    },
+    serverId: [{
+      type: Schema.Types.ObjectId,
+      ref: "Server"
+    }],
+    userId: [{
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    }],
     content: {
       type: String,
       required: true,
