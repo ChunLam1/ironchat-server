@@ -12,7 +12,10 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res, next) => {
   ServerModel.create(req.body)
-    .then((server) => res.status(200).json(server))
+    .then((server) => {
+      console.log(req);
+      res.status(200).json(server);
+    })
     .catch((e) => console.log(e));
 });
 
