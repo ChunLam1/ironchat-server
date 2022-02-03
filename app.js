@@ -25,5 +25,6 @@ app.use(
 app.use("/", require("./routes/index"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/server", require("./routes/server"));
+app.use("/profile", require("./routes/profile"))
 
 module.exports = app;
