@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 });
 
 router.patch("/", (req, res, next) => {
-  UserModel.findByIdAndUpdate( req.params.id, req.body)
+  UserModel.findByIdAndUpdate(req.body._id, req.body)
     .then((user) => {
       console.log(req);
       res.status(200).json(user);
