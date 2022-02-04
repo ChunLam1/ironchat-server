@@ -17,7 +17,10 @@ const userSchema = new Schema(
     },
     imageUrl: {
       type: String
-    }
+    },
+    // friends:[{
+    //   type: Schema.Types.ObjectId, ref: "User"
+    // }]
   },
   {
     timestamps: true,

@@ -2,14 +2,14 @@ const { Schema, model } = require("mongoose");
 
 const messageSchema = new Schema(
   {
-    serverId: [{
+    serverId:{
       type: Schema.Types.ObjectId,
       ref: "Server"
-    }],
-    userId: [{
+    },
+    userId: {
       type: Schema.Types.ObjectId,
       ref: "User"
-    }],
+    },
     content: {
       type: String,
       required: true,
