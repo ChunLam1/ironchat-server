@@ -1,8 +1,8 @@
 module.exports = function (app) {
-  console.log("je suis app dans socket/index.js", app);
-
   const httpServer = require("http").createServer(app);
-  const io = require("socket.io")(httpServer);
+  const io = require("socket.io")(httpServer, {
+    cors: { origin: process.env.FRONTEND_URL },
+  });
 
   console.log(io);
 
