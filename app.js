@@ -8,6 +8,10 @@ const cors = require("cors");
 
 const app = express();
 
+require("./socket")(app);
+
+//app.listen(process.env.PORT);
+
 //? Services like heroku use something called a proxy and you need to add this to your server
 app.set("trust proxy", 1);
 app.use(logger("dev"));
@@ -25,6 +29,6 @@ app.use(
 app.use("/", require("./routes/index"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/server", require("./routes/server"));
-app.use("/profile", require("./routes/profile"))
+app.use("/profile", require("./routes/profile"));
 
 module.exports = app;

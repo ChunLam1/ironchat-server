@@ -5,13 +5,13 @@ const protectRoute = require("../middlewares/protectRoute");
 router.get("/", (req, res) => {
   UserModel.find()
     .then((user) => {
-      res.status(200).json({ user });
+      res.status(200).json({ user: ":)" });
     })
     .catch((e) => console.error(e));
 });
 
 router.patch("/", (req, res, next) => {
-  UserModel.findByIdAndUpdate(req.body._id, req.body, {new: true})
+  UserModel.findByIdAndUpdate(req.body._id, req.body, { new: true })
     .then((user) => {
       console.log(req);
       res.status(200).json(user);

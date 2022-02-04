@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
     .then((server) => {
       res.status(200).json({ server });
     })
-    .catch((e) => console.error(e));
+    .catch((e) => console.error(e));  
 });
 
 router.post("/", (req, res, next) => {
