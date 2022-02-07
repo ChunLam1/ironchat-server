@@ -30,6 +30,12 @@ router.get("/:id/messages", async (req, res, next) => {
   }
 });
 
+router.get("/:id", (req, res, next) => {
+  ServerModel.findById(req.params.id)
+    .then((server) => res.status(200).json({ server }))
+    .catch((e) => console.error(e));
+});
+
 router.post("/", (req, res, next) => {
   ServerModel.create(req.body)
     .then((server) => {
