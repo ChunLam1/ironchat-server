@@ -11,9 +11,11 @@ router.get("/", (req, res) => {
     .catch((e) => console.error(e));
 });
 
+// :id correspond au serverId
 router.get("/:id/messages", (req, res) => {
   MessageModel
-    .find().populate("serverId", "userId")
+    .find()
+    .populate("serverId", "userId")
     .then((message) => res.status(200).json({ message }))
     .catch(e => console.error(e))
 })
