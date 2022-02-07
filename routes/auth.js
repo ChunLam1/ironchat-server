@@ -20,16 +20,17 @@ router.post("/signup", async (req, res, next) => {
 			.json({ message: "I need some informations to work with here!" });
 	}
 
-	const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+	// a remettre quand on a fini
+	// const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
-	if (!regex.test(password)) {
-		return res
-			.status(400)
-			.json({
-				message:
-					"Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
-			});
-	}
+	// if (!regex.test(password)) {
+	// 	return res
+	// 		.status(400)
+	// 		.json({
+	// 			message:
+	// 				"Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
+	// 		});
+	// }
 
 	try {
 		const foundUser = await User.findOne({ email });

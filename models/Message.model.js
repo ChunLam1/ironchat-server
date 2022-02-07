@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const messageSchema = new Schema(
   {
-    serverId:{
+    serverId: {
       type: Schema.Types.ObjectId,
       ref: "Server"
     },

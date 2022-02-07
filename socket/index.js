@@ -15,15 +15,21 @@ module.exports = function (app) {
     });
 
     socket.on("message", (msg) => {
-      console.log("message reçu : " + msg.message);
+      console.log("message reçu : " + {
+        serverId: msg.serverId,
+        userId: msg.userId,
+        content: msg.content
+      });
 
-      Message.create()
-    });
-
-    // socket.on("message", (arg) => {
-    //   console.log(arg);
-    // });
-    socket.emit("toto", () => console.log("hello"));
+      Message
+        .create({
+          serverId: msg.serverId,
+          userId: msg.userId,
+          content: msg.content
+        })
+        .then((v) => console.log({v}))
+        .catch(e => console.error(e))
+      })
   });
 
   httpServer.listen(process.env.SOCKET_PORT);

@@ -11,10 +11,6 @@ const serverSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User"
     }],
-    // messages: [{
-    //   type: Schema.Types.ObjectId,
-    //   ref: "Message"
-    // }],
     admins: [{
       type: Schema.Types.ObjectId,
       ref: "User"
