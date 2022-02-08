@@ -3,7 +3,7 @@ module.exports = function (app) {
   const io = require("socket.io")(httpServer, {
     cors: { origin: process.env.FRONTEND_URL },
   });
-  const Message = require("../models/Message.model")
+  const Message = require("../models/Message.model");
 
   console.log(io);
 
@@ -15,21 +15,40 @@ module.exports = function (app) {
     });
 
     socket.on("message", (msg) => {
-      console.log("message reçu : " + {
+      console.log(
+        "message reçu : " +
+          {
+            serverId: msg.serverId,
+            userId: msg.userId,
+            content: msg.content,
+          }
+      );
+
+      Message.create({
         serverId: msg.serverId,
         userId: msg.userId,
-        content: msg.content
-      });
-
-      Message
-        .create({
-          serverId: msg.serverId,
-          userId: msg.userId,
-          content: msg.content
-        })
-        .then((v) => console.log({v}))
-        .catch(e => console.error(e))
+        content: msg.content,
       })
+        .then((v) => console.log({ v }))
+        .catch((e) => console.error(e));
+    });
+
+    socket.emit("new-message", (msg) => {
+      console.log(msg, "----------------");
+      console.log(
+        "message reçu : " +
+          {
+            serverId: msg.serverId,
+            userId: msg.userId,
+            content: msg.content,
+          }
+      );
+      Message.find({
+        serverId: msg.serverId,
+      })
+        .then((v) => console.log({ v }))
+        .catch((e) => console.error(e));
+    });
   });
 
   httpServer.listen(process.env.SOCKET_PORT);
