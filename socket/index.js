@@ -43,8 +43,8 @@ module.exports = function (app) {
             content: msg.content,
           }
       );
-      Message.find({
-        serverId: msg.serverId,
+      Message.findOne({
+        serverId: msg.serverId
       })
         .then((v) => console.log({ v }))
         .catch((e) => console.error(e));
