@@ -15,10 +15,8 @@ router.get("/", (req, res) => {
 router.patch("/:id", uploader.single("image"), (req, res, next) => {
   const updatedProfile = req.body;
   if (req.file) updatedProfile.image = req.file.path;
-  // console.log(updatedProfile);
-
-  console.log(req.file);
   console.log(updatedProfile);
+  console.log(req.file);
 
   UserModel.findByIdAndUpdate(req.params.id, updatedProfile, { new: true })
     .then((newUser) => {
