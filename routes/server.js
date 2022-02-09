@@ -42,4 +42,21 @@ router.post("/", (req, res, next) => {
     .catch((e) => console.log(e));
 });
 
+router.post("/message/:id", (req, res, next) => {
+  MessageModel.findByIdAndDelete(req.params.id, req.body)
+    .then((res) => {
+      res.status(200).json({ data: "message deleted" });
+    })
+    .catch((e) => next(e));
+});
+
+router.patch("/message/:id", (req, res, next) => {
+  console.log(req);
+  MessageModel.findByIdAndUpdate(req.params.id, req.body)
+    .then((res) => {
+      // res.status(200).json({ data: "message updated" });
+    })
+    .catch((e) => next(e));
+});
+
 module.exports = router;
