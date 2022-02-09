@@ -14,40 +14,20 @@ module.exports = function (app) {
       console.log("a user is disconnected");
     });
 
-    socket.on("message", (msg) => {
-      console.log(
-        "message reçu : " +
-          {
-            serverId: msg.serverId,
-            userId: msg.userId,
-            content: msg.content,
-          }
-      );
+    socket.on("message", async (msg) => {
+      console.log("message reçu : ");
+      console.log(msg);
 
-      Message.create({
-        serverId: msg.serverId,
-        userId: msg.userId,
-        content: msg.content,
-      })
-        .then((v) => console.log({ v }))
-        .catch((e) => console.error(e));
-    });
-
-    socket.emit("new-message", (msg) => {
-      console.log(msg, "----------------");
-      console.log(
-        "message reçu : " +
-          {
-            serverId: msg.serverId,
-            userId: msg.userId,
-            content: msg.content,
-          }
-      );
-      Message.findOne({
-        serverId: msg.serverId
-      })
-        .then((v) => console.log({ v }))
-        .catch((e) => console.error(e));
+      try {
+        const newMessage = await Message.create({
+          serverId: msg.serverId,
+          userId: msg.userId,
+          content: msg.content,
+        });
+        socket.emit("message-stored", newMessage);
+      } catch (err) {
+        console.error(err);
+      }
     });
   });
 
