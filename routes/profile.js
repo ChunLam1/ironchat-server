@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const UserModel = require("../models/User.model");
 const protectRoute = require("../middlewares/protectRoute");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const uploader = require("../config/cloudinary");
 
 router.get("/", (req, res) => {
   UserModel.find()
@@ -11,8 +12,15 @@ router.get("/", (req, res) => {
     .catch((e) => console.error(e));
 });
 
-router.patch("/:id", (req, res, next) => {
-  UserModel.findByIdAndUpdate(req.params.id, req.body, { new: true })
+router.patch("/:id", uploader.single("image"), (req, res, next) => {
+  const updatedProfile = req.body;
+  if (req.file) updatedProfile.image = req.file.path;
+  // console.log(updatedProfile);
+
+  console.log(req.file);
+  console.log(updatedProfile);
+
+  UserModel.findByIdAndUpdate(req.params.id, updatedProfile, { new: true })
     .then((newUser) => {
       const user = newUser.toObject();
       delete user.password;

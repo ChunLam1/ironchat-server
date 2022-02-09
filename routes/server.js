@@ -15,8 +15,6 @@ router.get("/", (req, res) => {
 // :id correspond au serverId
 router.get("/:id/messages", async (req, res, next) => {
   try {
-    const serverId = req.params.id;
-    console.log(serverId);
     const messages = await MessageModel.find({
       serverId: req.params.id,
     })
@@ -39,7 +37,6 @@ router.get("/:id", (req, res, next) => {
 router.post("/", (req, res, next) => {
   ServerModel.create(req.body)
     .then((server) => {
-      console.log(req);
       res.status(200).json(server);
     })
     .catch((e) => console.log(e));

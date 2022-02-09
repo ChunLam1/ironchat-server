@@ -15,8 +15,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    imageUrl: {
-      type: String
+    image: {
+      type: String,
+      default:
+        "https://static.wikia.nocookie.net/mugenpedia/images/f/f8/200px-Patrick_Star.svg.png/revision/latest?cb=20130812201248&path-prefix=fr",
     },
     // friends:[{
     //   type: Schema.Types.ObjectId, ref: "User"
