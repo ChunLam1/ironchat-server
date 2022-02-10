@@ -1,10 +1,6 @@
 module.exports = function (httpServer) {
   const { Server } = require("socket.io");
 
-  // const io = require("socket.io")(httpServer, {
-  //   cors: { origin: process.env.FRONTEND_URL },
-  // });
-
   const io = new Server(httpServer, {
     cors: {
       origin: process.env.FRONTEND_URL,
@@ -13,8 +9,6 @@ module.exports = function (httpServer) {
       credentials: true,
     },
   });
-
-  //const io = new Server(httpServer);
 
   const Message = require("../models/Message.model");
 

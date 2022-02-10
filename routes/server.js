@@ -31,8 +31,31 @@ router.get("/:id/messages", async (req, res, next) => {
 router.get("/:id", (req, res, next) => {
   console.log("I'm here");
   ServerModel.findById(req.params.id)
+    .populate("participants")
     .then((server) => res.status(200).json({ server }))
     .catch((e) => res.status(500).json({ error: e }));
+});
+
+router.post("/:id/participants", async (req, res, next) => {
+  console.log(req.body);
+  try {
+    const found = await ServerModel.find({
+      _id: req.params.id,
+      participants: { $in: req.body.participants },
+    });
+    if (found[0]) res.status(200).json({ message: "All good" });
+    else {
+      ServerModel.findByIdAndUpdate(req.params.id, {
+        $push: { participants: req.body.participants },
+      })
+        .populate("participants")
+        .then((response) => {
+          res.status(200).json({ response });
+        });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
 });
 
 router.post("/", (req, res, next) => {
