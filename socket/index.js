@@ -5,7 +5,10 @@ module.exports = function (app) {
   });
   const Message = require("../models/Message.model");
 
-  console.log(io);
+  io.configure(function () {
+    io.set("transports", ["xhr-polling"]);
+    io.set("polling duration", 10);
+  });
 
   io.on("connection", (socket) => {
     console.log("a user is connected");
