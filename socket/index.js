@@ -24,8 +24,10 @@ module.exports = function (app) {
           userId: msg.userId,
           content: msg.content,
         });
+
         socket.emit("message-stored", newMessage);
       } catch (err) {
+        socket.emit("error-backend", { err, message: err.message });
         console.error(err);
       }
     });
