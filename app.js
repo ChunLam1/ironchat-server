@@ -2,13 +2,16 @@ require("dotenv").config();
 require("./config/dbConfig");
 const express = require("express");
 const path = require("path");
+const http = require("http");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
+const { createServer } = require("http");
 
 const app = express();
+const server = http.createServer(app);
 
-require("./socket")(app);
+require("./socket")(server);
 
 //? Services like heroku use something called a proxy and you need to add this to your server
 app.set("trust proxy", 1);
@@ -42,4 +45,4 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-module.exports = app;
+module.exports = { app, server };

@@ -1,6 +1,6 @@
-module.exports = function (app) {
-  const httpServer = require("http").createServer(app);
+module.exports = function (httpServer) {
   const { Server } = require("socket.io");
+
   // const io = require("socket.io")(httpServer, {
   //   cors: { origin: process.env.FRONTEND_URL },
   // });
@@ -13,6 +13,8 @@ module.exports = function (app) {
       credentials: true,
     },
   });
+
+  //const io = new Server(httpServer);
 
   const Message = require("../models/Message.model");
 
@@ -42,5 +44,5 @@ module.exports = function (app) {
     });
   });
 
-  httpServer.listen(process.env.SOCKET_PORT);
+  // httpServer.listen(process.env.PORT);
 };
