@@ -42,10 +42,11 @@ router.post("/", (req, res, next) => {
     .catch((e) => console.log(e));
 });
 
-router.post("/message/:id", (req, res, next) => {
-  MessageModel.findByIdAndDelete(req.params.id, req.body)
-    .then((res) => {
-      res.status(200).json({ data: "message deleted" });
+router.delete("/message/:id", (req, res, next) => {
+  MessageModel.findByIdAndDelete(req.params.id)
+    .then((response) => {
+      console.log(response);
+      res.status(204).json({ data: "message deleted" });
     })
     .catch((e) => next(e));
 });
@@ -53,8 +54,8 @@ router.post("/message/:id", (req, res, next) => {
 router.patch("/message/:id", (req, res, next) => {
   console.log(req);
   MessageModel.findByIdAndUpdate(req.params.id, req.body)
-    .then((res) => {
-      // res.status(200).json({ data: "message updated" });
+    .then((response) => {
+      res.status(200).json({ data: "message updated" });
     })
     .catch((e) => next(e));
 });
