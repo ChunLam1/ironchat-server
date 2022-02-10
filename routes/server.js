@@ -29,6 +29,7 @@ router.get("/:id/messages", async (req, res, next) => {
 });
 
 router.get("/:id", (req, res, next) => {
+  console.log("I'm here");
   ServerModel.findById(req.params.id)
     .then((server) => res.status(200).json({ server }))
     .catch((e) => res.status(500).json({ error: e }));
