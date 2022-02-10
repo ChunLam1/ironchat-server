@@ -1,8 +1,19 @@
 module.exports = function (app) {
   const httpServer = require("http").createServer(app);
-  const io = require("socket.io")(httpServer, {
-    cors: { origin: process.env.FRONTEND_URL },
+  const { Server } = require("socket.io");
+  // const io = require("socket.io")(httpServer, {
+  //   cors: { origin: process.env.FRONTEND_URL },
+  // });
+
+  const io = new Server(httpServer, {
+    cors: {
+      origin: process.env.FRONTEND_URL,
+      // or with an array of origins
+      // origin: ["https://my-frontend.com", "https://my-other-frontend.com", "http://localhost:3000"],
+      credentials: true,
+    },
   });
+
   const Message = require("../models/Message.model");
 
   io.on("connection", (socket) => {
